@@ -16,6 +16,8 @@ export function WalletButton() {
     id: 'eth',
     name: 'Ethereum Mainnet',
   });
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (isOpen) {
@@ -31,6 +33,14 @@ export function WalletButton() {
     setIsOpen(false);
   };
 
+  const handleUnlock = () => {
+    if (password === '123456') {
+      setIsOpen(false);
+    } else {
+      setError('Incorrect password');
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <Button
@@ -41,7 +51,7 @@ export function WalletButton() {
       >
         Connect Wallet
       </Button>
-      <DialogContent className="sm:max-w-[355px] p-0 bg-white border-0 shadow-xl fixed right-4 top-4">
+      <DialogContent className="sm:max-w-[357px] h-[600px] p-0 bg-white border-0 shadow-xl fixed right-0 top-0">
         {isLoading ? (
           <div className="h-[600px] flex flex-col items-center justify-center">
             <img src="/logo.svg" alt="Loading..." className="w-40 h-40 animate-pulse" />
@@ -62,27 +72,39 @@ export function WalletButton() {
                 <img src="/logo.svg" alt="logo" className="w-10 h-10" />
               </div>
             </div>
-            <div className="p-6 flex flex-col items-center">
+            <div className="p-6 flex flex-col items-center mt-5">
               <MetamaskLogo />
-              <h2 className="text-[22px] leading-tight font-bold text-slate-500 tracking-tight">
+              <h2 className="text-[24px] leading-tight font-bold text-slate-500 tracking-tight mt-1">
                 Welcome back!
               </h2>
-              <p className="text-slate-900 text-[14px] mb-16 font-normal">
+              <p className="text-slate-900 mb-16 font-normal">
                 The decentralized web awaits
               </p>
               
-              <div className="w-full space-y-8">
+              <div className="w-full space-y-7">
                 <div>
                   <input
                     type="password"
                     placeholder="Password"
-                    className="text-slate-900 w-full py-1 border-b border-slate-700 focus:outline-none placeholder-slate-500 font-normal bg-transparent px-0 focus:border-[#43AEFC]"
+                    className={`text-slate-900 w-full py-1 border-b-2 focus:outline-none placeholder-slate-500 font-normal bg-transparent px-0 ${error ? 'border-red-500 focus:border-red-500' : 'border-slate-700 focus:border-[#43AEFC]'}`}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setError('');
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleUnlock();
+                      }
+                    }}
                   />
+                  {error && <p className="text-red-600 text-xs mt-1 font-medium">{error}</p>}
                 </div>
                 
                 <Button 
                   className="w-full h-[46px] bg-[#43AEFC] hover:bg-[#348bc8] text-white rounded-[100px] font-bold text-sm"
-                  onClick={handleConnect}
+                  onClick={handleUnlock}
+                  disabled={password.length === 0}
                 >
                   Unlock
                 </Button>
@@ -97,7 +119,7 @@ export function WalletButton() {
                 </div>
               </div>
               
-              <div className="mt-10 text-xs text-slate-700 font-medium">
+              <div className="mt-9 text-xs text-slate-700 font-medium">
                 Need help? Contact{' '}
                 <a 
                   href="#" 

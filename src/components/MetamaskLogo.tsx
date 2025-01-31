@@ -12,8 +12,8 @@ const MetamaskLogo = () => {
       // Initialize the MetaMask logo
       const logo = MetaMaskOnboardingLogo({
         pxNotRatio: true,
-        width: 200,
-        height: 200,
+        width: 124,
+        height: 124,
         followMouse: true,
       });
 
