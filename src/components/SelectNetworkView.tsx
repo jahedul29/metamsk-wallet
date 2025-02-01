@@ -87,12 +87,14 @@ export const SelectNetworkView: React.FC<SelectNetworkViewProps> = ({
     }
 
     const query = searchQuery.toLowerCase();
-    return networkSections.map(section => ({
-      ...section,
-      networks: section.networks.filter(network =>
-        network.name.toLowerCase().includes(query)
-      )
-    })).filter(section => section.networks.length > 0);
+    return networkSections
+      .map((section) => ({
+        ...section,
+        networks: section.networks.filter((network) =>
+          network.name.toLowerCase().includes(query)
+        ),
+      }))
+      .filter((section) => section.networks.length > 0);
   }, [searchQuery]);
 
   return (
@@ -137,11 +139,12 @@ export const SelectNetworkView: React.FC<SelectNetworkViewProps> = ({
                   <div
                     key={network.id}
                     className={`flex items-center p-1 h-[56px] ${
-                      (selectedNetworkId === network.id && section.section === "Enabled networks")
+                      selectedNetworkId === network.id &&
+                      section.section === "Enabled networks"
                         ? "bg-[#0376c91a] hover:bg-[#0376c91a]"
                         : section.section === "Enabled networks"
-                          ? "hover:bg-gray-50"
-                          : ""
+                        ? "hover:bg-gray-50"
+                        : ""
                     }`}
                     onClick={() => {
                       handleNetworkChange({
@@ -168,32 +171,32 @@ export const SelectNetworkView: React.FC<SelectNetworkViewProps> = ({
                       {section.section === "Enabled networks" ? (
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                          {/* <Button 
+                            {/* <Button 
                           variant="ghost" 
                           size="icon" 
                           className="h-8 w-8 hover:bg-gray-100 rounded-full"
                         > */}
-                          <MoreVertical className="h-4 w-4" />
-                          {/* </Button> */}
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          align="end"
-                          className="w-[230px] p-0"
-                        >
-                          <DropdownMenuItem className="flex items-center gap-3 py-4 cursor-pointer text-neutral-900 font-semibold">
-                            <PencilLine className="h-4 w-4" />
-                            <span>Edit</span>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                            <MoreVertical className="h-4 w-4" />
+                            {/* </Button> */}
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent
+                            align="end"
+                            className="w-[230px] p-0"
+                          >
+                            <DropdownMenuItem className="flex items-center gap-3 py-4 cursor-pointer text-neutral-900 font-semibold">
+                              <PencilLine className="h-4 w-4" />
+                              <span>Edit</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       ) : (
                         <Button
-                      variant="link"
-                      size="icon"
-                      className="h-8 w-8 font-semibold"
-                    >
-                      Add
-                    </Button>
+                          variant="link"
+                          size="icon"
+                          className="h-8 w-8 font-semibold"
+                        >
+                          Add
+                        </Button>
                       )}
                     </div>
                   </div>
