@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import MetamaskLogo from './MetamaskLogo';
 import { NetworkSelector } from './NetworkSelector';
+import { SelectNetworkView } from './SelectNetworkView';
 
 interface Network {
   id: string;
@@ -18,6 +19,7 @@ export function WalletButton() {
   });
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isNetworkViewOpen, setIsNetworkViewOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -28,10 +30,6 @@ export function WalletButton() {
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
-
-  const handleConnect = () => {
-    setIsOpen(false);
-  };
 
   const handleUnlock = () => {
     if (password === '123456') {
@@ -51,7 +49,7 @@ export function WalletButton() {
       >
         Connect Wallet
       </Button>
-      <DialogContent className="sm:max-w-[357px] h-[600px] p-0 bg-white border-0 shadow-xl fixed right-0 top-0">
+      <DialogContent className="max-w-[357px] h-[600px] p-0 bg-white border-0 shadow-xl fixed right-0 top-0 overflow-auto">
         {isLoading ? (
           <div className="h-[600px] flex flex-col items-center justify-center">
             <img src="/logo.svg" alt="Loading..." className="w-40 h-40 animate-pulse" />
@@ -59,13 +57,15 @@ export function WalletButton() {
               <div className="w-8 h-8 border-4 border-amber-600 border-t-transparent rounded-full animate-spin" />
             </div>
           </div>
+        ) : isNetworkViewOpen ? (
+          <SelectNetworkView onClose={() => setIsNetworkViewOpen(false)} handleNetworkChange={setSelectedNetwork} selectedNetworkId={selectedNetwork.id} />
         ) : (
           <>
             <div className="border-b border-gray-100 shadow-sm flex justify-between items-center">
               <div className="p-3">
                 <NetworkSelector
                   selectedNetwork={selectedNetwork}
-                  onNetworkChange={setSelectedNetwork}
+                  setIsNetworkViewOpen={setIsNetworkViewOpen}
                 />
               </div>
               <div className="p-3">
