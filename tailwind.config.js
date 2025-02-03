@@ -1,7 +1,8 @@
-import { fontFamily } from 'tailwindcss/defaultTheme'
+import { fontFamily } from 'tailwindcss/defaultTheme';
+import withMT from "@material-tailwind/react/utils/withMT";
 
 /** @type {import('tailwindcss').Config} */
-export default {
+export default withMT({
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -86,4 +87,4 @@ export default {
     },
   },
   plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar')],
-};
+});
