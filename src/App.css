@@ -4,3 +4,8 @@
   padding: 2rem;
   text-align: center;
 }
+
+.password-input label {
+  font-weight: 500 !important;
+  @apply !text-gray-700;
+}
