@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="w-full relative overflow-hidden border border-amber-600 shadow p-20 shadow-amber-600 rounded-lg">
+    <div className="w-full relative overflow-hidden border border-amber-800 shadow p-20 shadow-amber-600 rounded-lg">
       {/* Main Content */}
       <main className="container mx-auto px-4 py-16 relative z-10">
         <h1 className="text-4xl font-bold text-center mb-8">

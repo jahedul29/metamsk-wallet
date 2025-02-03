@@ -49,7 +49,7 @@ export function WalletButton() {
       <Button
         onClick={() => setIsOpen(true)}
         variant="outline"
-        className="bg-amber-600 hover:bg-amber-700 border-none text-white hover:text-white font-bold"
+        className="bg-amber-800 hover:bg-amber-900 border-none text-white hover:text-white font-bold"
         size="lg"
       >
         Connect Wallet
