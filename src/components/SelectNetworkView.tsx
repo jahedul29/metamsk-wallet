@@ -101,7 +101,7 @@ export const SelectNetworkView: React.FC<SelectNetworkViewProps> = ({
     <div className="w-full max-w-md space-y-4 text-neutral-900 bg-gray-600 p-3 relative">
       <div className="bg-white rounded-lg">
         <div className="flex items-center justify-between p-4">
-          <h2 className="font-black text-center w-full">Select a network</h2>
+          <h2 className="font-extrabold text-center w-full">Select a network</h2>
 
           <X className="h-5 w-5" onClick={onClose} />
         </div>
