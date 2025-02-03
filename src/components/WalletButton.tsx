@@ -4,6 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import MetamaskLogo from "./MetamaskLogo";
 import { NetworkSelector } from "./NetworkSelector";
 import { SelectNetworkView } from "./SelectNetworkView";
+import { Input } from "@material-tailwind/react";
 
 interface Network {
   id: string;
@@ -40,7 +41,11 @@ export function WalletButton() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(open: boolean) => {
+      setIsOpen(open)
+      setError("");
+      setPassword("");
+    }}>
       <Button
         onClick={() => setIsOpen(true)}
         variant="outline"
@@ -49,7 +54,7 @@ export function WalletButton() {
       >
         Connect Wallet
       </Button>
-      <DialogContent className="max-w-[357px] h-[600px] p-0 bg-white border-0 shadow-xl fixed right-0 top-0 overflow-auto">
+      <DialogContent className="max-w-[357px] h-[600px] p-0 bg-white border-0 shadow-xl fixed right-0 top-0 text-[#171717]">
         {isLoading ? (
           <div className="h-[600px] flex flex-col items-center justify-center">
             <img
@@ -82,24 +87,31 @@ export function WalletButton() {
             </div>
             <div className="p-6 flex flex-col items-center mt-5">
               <MetamaskLogo />
-              <h2 className="text-[24px] leading-tight font-bold text-slate-500 tracking-tight mt-1">
+              <h2 className="text-[24px] leading-tight font-black text-[#6a737d] tracking-tight mt-1">
                 Welcome back!
               </h2>
-              <p className="text-slate-900 mb-16 font-normal">
+              <p className="text-[#141618] mb-[56px] font-normal">
                 The decentralized web awaits
               </p>
 
               <div className="w-full space-y-7">
-                <div>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    className={`text-slate-900 w-full py-1 border-b-2 focus:outline-none placeholder-slate-500 font-normal bg-transparent px-0 ${
-                      error
-                        ? "border-red-500 focus:border-red-500"
-                        : "border-slate-700 focus:border-[#43AEFC]"
-                    }`}
-                    value={password}
+                <div className="password-input">
+                  <Input
+                  error={!!error}
+                  color={"blue"}
+                  // labelProps={{
+                  //   className: "!text-gray-700 font-semibold !text-xs",
+
+                  // }}
+                        variant="standard"
+                        type="password"
+                        placeholder="Password"
+                        label="Password"
+                        className={`!font-semibold !text-sm ${error ? "border-b-2" : ""}`}
+                        // className={`!text-slate-900 !w-full !py-1 !border-b-2 focus:!outline-none placeholder:!text-slate-500 !font-normal !bg-transparent !px-0 ${error
+                        //     ? "!border-red-500 focus:!border-red-500"
+                        //     : "!border-slate-700 focus:!border-[#43AEFC]"}`}
+                          value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
                       setError("");
@@ -109,6 +121,9 @@ export function WalletButton() {
                         handleUnlock();
                       }
                     }}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    crossOrigin={undefined}
                   />
                   {error && (
                     <p className="text-red-600 text-xs mt-1 font-medium">
@@ -118,7 +133,7 @@ export function WalletButton() {
                 </div>
 
                 <Button
-                  className="w-full h-[46px] bg-[#43AEFC] hover:bg-[#348bc8] text-white rounded-[100px] font-bold text-sm"
+                  className="w-full h-[46px] bg-[#0376c9] hover:bg-[#348bc8] text-white rounded-[100px] font-bold text-sm ring-0"
                   onClick={handleUnlock}
                   disabled={password.length === 0}
                 >
@@ -128,7 +143,7 @@ export function WalletButton() {
                 <div className="flex justify-center">
                   <a
                     href="#"
-                    className="text-[#0376C9] hover:text-[#0372C3] font-semibold text-xs"
+                    className="text-[#0376C9] hover:text-[#0372C3] font-black text-xs"
                   >
                     Forgot password?
                   </a>
