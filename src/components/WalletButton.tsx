@@ -41,11 +41,14 @@ export function WalletButton() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open: boolean) => {
-      setIsOpen(open)
-      setError("");
-      setPassword("");
-    }}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open: boolean) => {
+        setIsOpen(open);
+        setError("");
+        setPassword("");
+      }}
+    >
       <Button
         onClick={() => setIsOpen(true)}
         variant="outline"
@@ -97,21 +100,15 @@ export function WalletButton() {
               <div className="w-full space-y-7">
                 <div className="password-input">
                   <Input
-                  error={!!error}
-                  color={"blue"}
-                  // labelProps={{
-                  //   className: "!text-gray-700 font-semibold !text-xs",
-
-                  // }}
-                        variant="standard"
-                        type="password"
-                        placeholder="Password"
-                        label="Password"
-                        className={`!font-semibold !text-sm ${error ? "border-b-2" : ""}`}
-                        // className={`!text-slate-900 !w-full !py-1 !border-b-2 focus:!outline-none placeholder:!text-slate-500 !font-normal !bg-transparent !px-0 ${error
-                        //     ? "!border-red-500 focus:!border-red-500"
-                        //     : "!border-slate-700 focus:!border-[#43AEFC]"}`}
-                          value={password}
+                    error={!!error}
+                    color={"blue"}
+                    variant="standard"
+                    type="password"
+                    label="Password"
+                    className={`!font-semibold !text-sm ${
+                      error ? "border-b-2" : ""
+                    }`}
+                    value={password}
                     onChange={(e) => {
                       setPassword(e.target.value);
                       setError("");
@@ -124,6 +121,7 @@ export function WalletButton() {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                     crossOrigin={undefined}
+                    autoFocus={true}
                   />
                   {error && (
                     <p className="text-red-600 text-xs mt-1 font-medium">
